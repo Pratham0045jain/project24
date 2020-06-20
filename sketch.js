@@ -1,26 +1,66 @@
-// You could have multiple flags like: start, launch to indicate the state of the game.
+const Engine = Matter.Engine;
+const World= Matter.World;
+const Bodies = Matter.Bodies;
 
-const { Engine, World, Bodies, Body, Mouse, MouseConstraint, Constraint, Composite, Detector } = Matter;
-// The above line creates different constant variables for Engine, World, Bodies etc.
+var engine, world;
+var mouth;
 
-/*
-
-const {Engine} = Matter 
-is the same as c
-onst Engine = Matter.Engine
-
-*/
+function preload() {
+    backgroundImg = loadImage("assets/war.jpg");
+}
 
 function setup() {
-    // Setup the canvas, the ground the, tanker, the shooting ball and the bubble balls.
+    var canvas = createCanvas(1200,400);
+    engine = Engine.create();
+    world = engine.world;
+
+    ground = new Ground(600,400,1200,30);
+    tanker = new Tanker(320,320,220,170);
+    mouth = new Mouth(420,260,130,PI/2);
+    cannonBall = new CanonBall(200,200,100,100);
+    ball = new Ball(600,600,5);
+
+    cannonBall1 = new CanonBall(800,10,100,100);
+    cannonBall2 = new CanonBall(900,30,100,100);
+    cannonBall3 = new CanonBall(1000,5,100,100);
 
 }
 
 function draw() {
-// Remember to update the Matter Engine and set the background.
+     background(backgroundImg);
+     Engine.update(engine);
+     
+  ground.display();
+  tanker.display();
+  mouth.display();
+  cannonBall.display();
+  ball.display();
+  cannonBall1.display();
+  cannonBall2.display();
+  cannonBall3.display();
+
+  
+
+  for(var i = 1; i<9; i = i+0.5){
+  if(keyIsDown(UP_ARROW)){
+    Matter.Body.setAngle(mouth.body, PI/i);
+  }
 }
 
+for(var i = 1; i<9; i = i+1){
+    if(keyIsDown(DOWN_ARROW)){
+      Matter.Body.setAngle(mouth.body, -PI/i);
+    }
+  }
+  
 
+/* function keyPressed(){
+    if(keyIsDown(UP_ARROW)){
+    mouth = new Mouth(340,320,40,PI/6);
+    
+    }
+} */
+}
 function keyReleased() {
     // Call the shoot method for the cannon.
 }

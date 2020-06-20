@@ -9,7 +9,7 @@ class ShootBall{
 
     }
 
-    attach(body){}
+    attach(){}
 
     shoot(){}
 
